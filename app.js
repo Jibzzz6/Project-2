@@ -1,45 +1,44 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const session = require('express-session');
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
+const path = require('path');
+const { router: authRoutes, requireAuth } = require('./routes/auth');
 
 const app = express();
 
 // Middleware
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+
+// Session setup
 app.use(
   session({
-    secret: 'secretkey',
+    secret: 'mysecret',
     resave: false,
     saveUninitialized: true,
   })
 );
 
-// Database connection
-mongoose.connect('mongodb://127.0.0.1:27017/authDemo', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+// Use auth routes
+app.use(authRoutes);
+
+// Pass session data to views
+app.use((req, res, next) => {
+  res.locals.user = req.session.user;
+  next();
 });
 
-// Routes
-app.use('/', authRoutes);
+// Public route
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
-// Protecting Routes
-const isAuthenticated = (req, res, next) => {
-  if (req.session.user) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-};
+// Protected route
+app.get('/dashboard', requireAuth, (req, res) => {
+  res.render('dashboard', { user: req.session.user });
+});
 
-// Main pages
-app.get('/', (req, res) => res.render('index', { user: req.session.user }));
-app.get('/dashboard', isAuthenticated, (req, res) => res.render('dashboard', { user: req.session.user }));
-
-// Start Server
-const PORT = 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Start server
+app.listen(3000, () => {
+  console.log('Server running on http://localhost:3000');
+});
