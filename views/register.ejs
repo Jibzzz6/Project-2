@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Register</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8"> <!-- Specifies the character encoding for the document as UTF-8 -->
+  <title>Register</title> <!-- Sets the title of the webpage to "Register" -->
+  <link rel="stylesheet" href="/style.css"> <!-- Links an external CSS file for styling -->
 </head>
 <body>
-  <form method="POST" action="/register">
-    <h2>Register</h2>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <input type="submit" value="Register">
+  <form method="POST" action="/register"> <!-- Form that sends data via POST request to the /register route -->
+    <h2>Register</h2> <!-- Displays the title of the form as "Register" -->
+    
+    <label for="username">Username:</label> <!-- Label for the username input field -->
+    <input type="text" id="username" name="username" required> <!-- Input field for username, marked as required -->
+    
+    <label for="password">Password:</label> <!-- Label for the password input field -->
+    <input type="password" id="password" name="password" required> <!-- Input field for password, marked as required -->
+
+    <input type="submit" value="Register"> <!-- Submit button with text "Register" -->
   </form>
 </body>
 </html>

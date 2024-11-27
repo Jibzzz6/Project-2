@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 
-// Session setup
+// sets up session
 app.use(
   session({
     secret: 'mysecret',
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-// Protected route
+// protect route using requireauth
 app.get('/dashboard', requireAuth, (req, res) => {
   res.render('dashboard', { user: req.session.user });
 });
