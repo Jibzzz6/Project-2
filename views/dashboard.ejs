@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="/style.css">
+  <meta charset="UTF-8"> <!-- Specifies the character encoding for the document as UTF-8 -->
+  <title>Dashboard</title> <!-- Sets the title of the webpage to "Dashboard" -->
+  <link rel="stylesheet" href="/style.css"> <!-- Links an external CSS file for styling -->
 </head>
 <body>
   <header>
-    <h1>Dashboard</h1>
+    <h1>Dashboard</h1> <!-- Displays the main header of the page as "Dashboard" -->
   </header>
-  <p>Welcome, <%= user.username %>!</p>
-  <a href="/logout">Logout</a>
+  <p>Welcome, <%= user.username %>!</p> <!-- Dynamically inserts the username of the user -->
+  <a href="/logout">Logout</a> <!-- Provides a logout link that navigates to the /logout route -->
 </body>
 </html>
