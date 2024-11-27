@@ -22,7 +22,7 @@ router.get('/register', (req, res) => {
   res.render('register');
 });
 
-// Register form submission
+// defines GET and POST routes for login, register, and logout
 router.post('/register', (req, res) => {
   const { username, password } = req.body;
   if (findUserByUsername(username)) {
@@ -39,7 +39,7 @@ router.get('/logout', (req, res) => {
   });
 });
 
-// Middleware to protect routes
+// protects private routes 
 function requireAuth(req, res, next) {
   if (req.session.user) {
     return next();
